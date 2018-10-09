@@ -261,7 +261,7 @@ var InfiniteScroll = function (_Component) {
       var isReverse = this.isReverse(direction);
       var Loader = loader || this.defaultLoader;
 
-      return _react2.default.createElement(Container, _extends({ ref: containerRef }, props), hasMore && isReverse && _react2.default.createElement(Loader, { key: loaderKey }), items, hasMore && !isReverse && _react2.default.createElement(Loader, { key: loaderKey }));
+      return _react2.default.createElement(Container, _extends({ ref: containerRef }, props), loader && hasMore && isReverse && _react2.default.createElement(Loader, { key: loaderKey }), items, loader && hasMore && !isReverse && _react2.default.createElement(Loader, { key: loaderKey }));
     }
   }]);
 

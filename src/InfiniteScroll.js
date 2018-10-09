@@ -186,9 +186,9 @@ class InfiniteScroll extends Component {
 
     return (
       <Container ref={containerRef} {...props}>
-        {hasMore && isReverse && <Loader key={loaderKey} />}
+        {loader && hasMore && isReverse && <Loader key={loaderKey} />}
         {items}
-        {hasMore && !isReverse && <Loader key={loaderKey} />}
+        {loader && hasMore && !isReverse && <Loader key={loaderKey} />}
       </Container>
     );
   }
