@@ -2,14 +2,15 @@
   "name": "react-infinite-scroller",
   "version": "1.2.1",
   "description": "Infinite scroll component for React in ES6",
-  "main": "index.js",
+  "main": "dist/InfiniteScroll.js",
   "jsnext:main": "src/InfiniteScroll.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/CassetteRocks/react-infinite-scroller.git"
   },
   "scripts": {
-    "build": "mkdir -p dist && babel src/InfiniteScroll.js --out-file dist/InfiniteScroll.js",
+    "prebuild": "rimraf dist && mkdir dist",
+    "build": "babel src/InfiniteScroll.js --out-file dist/InfiniteScroll.js",
     "prepublish": "npm run build",
     "test": "nyc npm run spec",
     "spec": "_mocha -R spec ./test/test_helper.js --recursive test/*_test.js",
@@ -69,6 +70,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-test-renderer": "^16.0.0",
+    "rimraf": "^2.6.2",
     "sinon": "^2.1.0",
     "webpack": "^2.5.1"
   }
