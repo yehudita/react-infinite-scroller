@@ -64,13 +64,13 @@ var InfiniteScroll = function (_Component) {
   }, {
     key: 'getParentElement',
     value: function getParentElement() {
-      var customParent = this.props.customParent;
+      var getScrollParent = this.props.getScrollParent;
 
       // The parent element can be overriden to make
       // calculations based on a different element.
 
-      if (typeof customParent === 'function') {
-        return customParent();
+      if (typeof getScrollParent === 'function') {
+        return getScrollParent();
       }
 
       return this.props.useWindow === false ? this._container.parentNode : window;
@@ -243,8 +243,8 @@ var InfiniteScroll = function (_Component) {
 InfiniteScroll.propTypes = {
   children: _propTypes2.default.node.isRequired,
   container: _propTypes2.default.node,
-  customParent: _propTypes2.default.func,
   direction: _propTypes2.default.oneOf(['up', 'down']),
+  getScrollParent: _propTypes2.default.func,
   hasMore: _propTypes2.default.bool,
   initialLoad: _propTypes2.default.bool,
   loader: _propTypes2.default.oneOfType([_propTypes2.default.func, _propTypes2.default.node]),
