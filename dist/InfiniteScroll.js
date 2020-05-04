@@ -234,7 +234,7 @@ var InfiniteScroll = (function(_Component) {
       value: function attachScrollListener() {
         var parentElement = this.getParentElement(this.scrollComponent);
 
-        if (!this.props.hasMore || !parentElement) {
+        if (!parentElement) {
           return;
         }
 
@@ -282,6 +282,7 @@ var InfiniteScroll = (function(_Component) {
         var parentNode = this.getParentElement(el);
 
         var offset = void 0;
+        var offsetTop = void 0;
         if (this.props.useWindow) {
           var doc =
             document.documentElement ||
@@ -299,12 +300,13 @@ var InfiniteScroll = (function(_Component) {
         } else if (this.props.isReverse) {
           offset = parentNode.scrollTop;
         } else {
+          offsetTop = parentNode.scrollTop
           offset =
             el.scrollHeight - parentNode.scrollTop - parentNode.clientHeight;
         }
 
         // Here we make sure the element is visible as well as checking the offset
-        if (
+        if (this.props.hasMore &&
           offset < Number(this.props.threshold) &&
           el &&
           el.offsetParent !== null
@@ -315,6 +317,15 @@ var InfiniteScroll = (function(_Component) {
           // Call loadMore after detachScrollListener to allow for non-async loadMore functions
           if (typeof this.props.loadMore === 'function') {
             this.props.loadMore((this.pageLoaded += 1));
+            this.loadMore = true;
+          }
+        }else if (this.pageLoaded >1 && offsetTop < Number(this.props.threshold) && el && el.offsetParent !== null) {
+          this.detachScrollListener();
+          this.beforeScrollHeight = parentNode.scrollHeight;
+          this.beforeScrollTop = parentNode.scrollTop;
+          // Call loadMore after detachScrollListener to allow for non-async loadMore functions
+          if (typeof this.props.loadMore === 'function') {
+            this.props.loadMore(this.pageLoaded -= 1);
             this.loadMore = true;
           }
         }
